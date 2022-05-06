@@ -23,7 +23,7 @@ class AppleSignInButton extends StatefulWidget {
   final double cornerRadius;
 
   // An optional 'custom text' to display on the button, NB! it can used for localized text
-  final String buttonText;
+  final String? buttonText;
   // An optional 'Key' to identify the button, NB! it can be used for integration tests
   final Key buttonKey;
 
@@ -32,7 +32,7 @@ class AppleSignInButton extends StatefulWidget {
       this.type = ButtonType.defaultButton,
       this.style = ButtonStyle.white,
       this.cornerRadius = 6,
-      this.buttonText = '',
+      this.buttonText,
       this.buttonKey = const Key('apple_signin')});
   /* : assert(type != null),
         assert(style != null),
@@ -67,9 +67,9 @@ class _AppleSignInButtonState extends State<AppleSignInButton> {
         constraints: BoxConstraints(
           minHeight: 32,
           maxHeight: 64,
-          minWidth: 200,
+          
         ),
-        height: 50,
+        height: 44,
         decoration: BoxDecoration(
           color: _isTapDown ? Colors.grey : bgColor,
           borderRadius: BorderRadius.all(
@@ -80,8 +80,15 @@ class _AppleSignInButtonState extends State<AppleSignInButton> {
         child: Center(
             child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
+          children: _appleLoginWidgets(),
+        )),
+      ),
+    );
+  }
+  List<Widget> _appleLoginWidgets() {
+    final textColor =
+        widget.style == ButtonStyle.black ? Colors.white : Colors.black;
+    List<Widget> arr = [Padding(
               padding: const EdgeInsets.only(bottom: 1, left: 2, right: 6),
               child: SizedBox(
                 height: 14,
@@ -92,8 +99,10 @@ class _AppleSignInButtonState extends State<AppleSignInButton> {
                   ),
                 ),
               ),
-            ),
-            Text(
+            )];
+            var str = _buttonText();
+            if (str.isNotEmpty) {
+              arr.add(Text(
               _buttonText(),
               style: TextStyle(
                 fontSize: 20,
@@ -102,16 +111,15 @@ class _AppleSignInButtonState extends State<AppleSignInButton> {
                 wordSpacing: -.5,
                 color: textColor,
               ),
-            ),
-          ],
-        )),
-      ),
-    );
+            ));
+            }
+            return arr;
+            
   }
 
   String _buttonText() {
-    if (widget.buttonText.isNotEmpty) {
-      return widget.buttonText;
+    if ((widget.buttonText == null) || (widget.buttonText?.isEmpty ?? false)) {
+      return widget.buttonText ?? "";
     } else {
       return widget.type == ButtonType.continueButton
           ? 'Continue with Apple'

@@ -1,3 +1,5 @@
+## 1.1.2 
+* add logo only button
 ## 1.1.1
 
 * Update Example app for better readability
