@@ -89,7 +89,7 @@ class _AppleSignInButtonState extends State<AppleSignInButton> {
     final textColor =
         widget.style == ButtonStyle.black ? Colors.white : Colors.black;
     List<Widget> arr = [Padding(
-              padding: const EdgeInsets.only(bottom: 1, left: 2, right: 6),
+              padding: const EdgeInsets.only(bottom: 1, left: 2, right: 2),
               child: SizedBox(
                 height: 14,
                 child: AspectRatio(
